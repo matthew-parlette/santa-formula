@@ -2,7 +2,7 @@
 # vim: ft=yaml
 santa:
   image: mattparlette/santa
-  name: santa
-  branch: latest
+  name: santa-dev
+  branch: develop
   environment:
-    RAILS_ENV: production
+    RAILS_ENV: development

@@ -1,26 +1,30 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{% from "santa/map.jinja" import santa with context %}
+{% from "santa/development/map.jinja" import santa with context %}
 
 include:
-  - santa.install
+  - santa.development.install
 
-santa-database:
+santa-development-database:
   file.touch:
     - name: {{ santa.database }}
+    - makedirs: True
 
-santa-public:
+santa-development-public:
   file.directory:
     - name: {{ santa.public }}
+    - makedirs: True
 
-santa-container:
+santa-development-container:
   dockerng.running:
     - name: {{ santa.name }}
     - image: {{ santa.image }}:{{ santa.branch }}
+    {%- if santa.has_key('database') %}
     - binds:
-      - {{ santa.database }}:/usr/src/app/db/production.sqlite3:rw
+      - {{ santa.database }}:/usr/src/app/db/development.sqlite3:rw
       - {{ santa.public }}:/usr/src/app/public:rw
+    {%- endif %}
     - port_bindings:
       - {{ santa.port }}:3000
     {%- if santa.environment %}
@@ -30,4 +34,6 @@ santa-container:
       {%- endfor %}
     {%- endif %}
     - require:
-      - dockerng: santa-image
+      - dockerng: santa-development-image
+      - file: santa-development-database
+      - file: santa-development-public

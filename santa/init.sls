@@ -2,6 +2,6 @@
 # vim: ft=sls
 
 include:
-  - template.install
-  - template.config
-  - template.service
+  - santa.install
+  # - santa.config
+  - santa.service

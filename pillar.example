@@ -1,3 +1,23 @@
-template:
-  lookup:
-    master: template-master
+santa:
+  database: /var/santa/production.sqlite3
+  public: /var/santa/public
+  environment:
+    RAILS_ENV: production
+    default_url_host: santa.com
+    force_ssl: 'true'
+    SECRET_KEY_BASE: 'run rails secret to get a secret key'
+    compile_assets: 'true'
+    RAILS_LOG_TO_STDOUT: 'true'
+    RAILS_SERVE_STATIC_FILES: 'true'
+    smtp_host: smtp.gmail.com
+    smtp_port: 587
+    smtp_domain: gmail.com
+    smtp_username: username
+    smtp_password: password
+    smtp_authentication: plain
+    smtp_enable_starttls_auto: true
+    group: group name
+  port: 3000
+  development:
+    database: /var/santa/development.sqlite3
+    # All other fields from above will apply
