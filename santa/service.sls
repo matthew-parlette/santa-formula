@@ -31,3 +31,15 @@ santa-container:
     {%- endif %}
     - require:
       - dockerng: santa-image
+
+{%- if santa.mattermost %}
+santa-result:
+  mattermost.post_message:
+    - channel: santa
+    - username: saltstack
+    - message: New Santa container has been deployed
+    - api_url: {{ santa.mattermost["api_url"] }}
+    - hook: {{ santa.mattermost["hook"] }}
+    - onchanges:
+      - dockerng: santa-container
+{%- endif %}

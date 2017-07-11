@@ -37,3 +37,15 @@ santa-development-container:
       - dockerng: santa-development-image
       - file: santa-development-database
       - file: santa-development-public
+
+{%- if santa.mattermost %}
+santa-development-result:
+  mattermost.post_message:
+    - channel: santa
+    - username: saltstack
+    - message: New development Santa container has been deployed
+    - api_url: {{ santa.mattermost["api_url"] }}
+    - hook: {{ santa.mattermost["hook"] }}
+    - onchanges:
+      - dockerng: santa-development-container
+{%- endif %}
