@@ -40,12 +40,13 @@ santa-development-container:
 
 {%- if santa.mattermost %}
 santa-development-result:
-  mattermost.post_message:
-    - channel: santa
-    - username: saltstack
-    - message: New development Santa container has been deployed
+  module.run:
+    - name: mattermost.post_message
     - api_url: {{ santa.mattermost["api_url"] }}
     - hook: {{ santa.mattermost["hook"] }}
+    - channel: {{ santa.mattermost["channel"] }}
+    - username: {{ salt['grains.get']('id', 'saltstack') }}
+    - message: New development Santa container has been deployed
     - onchanges:
       - dockerng: santa-development-container
 {%- endif %}

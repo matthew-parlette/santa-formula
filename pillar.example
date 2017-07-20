@@ -21,3 +21,7 @@ santa:
   development:
     database: /var/santa/development.sqlite3
     # All other fields from above will apply
+  mattermost:
+    api_url: mattermost-url
+    hook: mattermost-hook
+    channel: santa
